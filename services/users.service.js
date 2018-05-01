@@ -8,9 +8,9 @@ async function create(user) {
     .catch(err => err);
 }
 
-async function find(obj) {
+async function find(where) {
   return await User
-    .findOne(obj)
+    .findOne(where)
     .then(user => user)
     .catch(err => err);
 }
