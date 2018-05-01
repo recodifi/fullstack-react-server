@@ -1,12 +1,14 @@
 const express = require('express');
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const googleClientID = require('./config').googleClientID;
-const googleClientSecret = require('./config').googleClientSecret;
+const mongoose = require('mongoose');
+const dbConfig = require('./config/db');
+require('./models/User');
+require('./services/passport.service');
+
+mongoose.connect(`mongodb://${dbConfig.host}/${dbConfig.db}`);
 
 const app = express();
+
+require('./routes/auth.routes')(app);
+
 const PORT = process.env.PORT || 5000;
-
-passport.use(new GoogleStrategy());
-
 app.listen(PORT, () => console.log(`Server is listen on http://localhost:${PORT}`));
